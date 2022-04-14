@@ -11,6 +11,7 @@
 
 import Phaser from "phaser";
 import { Room, Client } from "colyseus.js";
+import { BACKEND_URL } from "../backend";
 
 export class Part4Scene extends Phaser.Scene {
     room: Room;
@@ -40,10 +41,6 @@ export class Part4Scene extends Phaser.Scene {
 
     constructor() {
         super({ key: "part4" });
-    }
-
-    preload() {
-        this.load.image('ship_0001', 'assets/ship_0001.png');
     }
 
     async create() {
@@ -108,7 +105,7 @@ export class Part4Scene extends Phaser.Scene {
             .setStyle({ color: "#ff0000" })
             .setPadding(4)
 
-        const client = new Client("ws://localhost:2567");
+        const client = new Client(BACKEND_URL);
 
         try {
             this.room = await client.joinOrCreate("part4_room", {});
