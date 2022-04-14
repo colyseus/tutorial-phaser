@@ -1,6 +1,6 @@
 # Phaser: Real-time Multiplayer with Colyseus
 
-Here are is the full source-code for the step-by-step tutorial on how to use Phaser + Colyseus together.
+Full source-code for the step-by-step tutorial on how to use Phaser + Colyseus together.
 
 - [Live Demo](https://colyseus-phaser-tutorial.glitch.me/)
 - [See step-by-step Tutorial](...)
