@@ -10,39 +10,25 @@ export class Part1Room extends Room<Part1State> {
     this.state.mapWidth = 800;
     this.state.mapHeight = 600;
 
+    // handle player input
     this.onMessage(0, (client, input) => {
-      // handle player input
       const player = this.state.players.get(client.sessionId);
-      player.input = input;
-    });
+      const velocity = 2;
 
-    this.setSimulationInterval((deltaTime) => {
-      this.update(deltaTime);
-    });
-  }
-
-  update(deltaTime: number) {
-    const velocity = 2;
-
-    // process each player input
-    this.state.players.forEach(player => {
-      if (!player.input) {
-        return; 
-      }
-
-      if (player.input.left) {
+      if (input.left) {
         player.x -= velocity;
 
-      } else if (player.input.right) {
+      } else if (input.right) {
         player.x += velocity;
       }
 
-      if (player.input.up) {
+      if (input.up) {
         player.y -= velocity;
 
-      } else if (player.input.down) {
+      } else if (input.down) {
         player.y += velocity;
       }
+
     });
   }
 
