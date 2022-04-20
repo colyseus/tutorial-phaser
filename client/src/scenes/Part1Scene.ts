@@ -43,7 +43,10 @@ export class Part1Scene extends Phaser.Scene {
 
             // listening for server updates
             player.onChange(() => {
+                //
                 // update local position immediately
+                // (WE WILL CHANGE THIS ON PART 2)
+                //
                 entity.x = player.x;
                 entity.y = player.y;
             });

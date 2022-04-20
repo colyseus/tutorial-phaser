@@ -65,10 +65,9 @@ export class Part3Scene extends Phaser.Scene {
             } else {
                 // listening for server updates
                 player.onChange(() => {
-                    // entity.x = player.x;
-                    // entity.y = player.y;
-
-                    // TODO: interpolate other players
+                    //
+                    // we're going to LERP the positions during the render loop.
+                    //
                     entity.setData('serverX', player.x);
                     entity.setData('serverY', player.y);
                 });
