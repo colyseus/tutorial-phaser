@@ -23,9 +23,16 @@ export class SceneSelector extends Phaser.Scene {
     }
 
     create() {
+        // automatically navigate to hash scene if provided
+        if (window.location.hash) {
+            this.runScene(window.location.hash.substring(1));
+            return;
+        }
+
         const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
             color: "#ff0000",
             fontSize: "32px",
+            // fontSize: "24px",
             fontFamily: "Arial"
         };
 
@@ -33,17 +40,13 @@ export class SceneSelector extends Phaser.Scene {
             const index = parseInt(partNum) - 1;
             const label = this.parts[partNum];
 
+            // this.add.text(32, 32 + 32 * index, `Part ${partNum}: ${label}`, textStyle)
             this.add.text(130, 150 + 70 * index, `Part ${partNum}: ${label}`, textStyle)
                 .setInteractive()
                 .setPadding(6)
                 .on("pointerdown", () => {
                     this.runScene(`part${partNum}`);
                 });
-        }
-
-        // automatically navigate to hash scene if provided
-        if (window.location.hash) {
-            this.runScene(window.location.hash.substring(1));
         }
     }
 
