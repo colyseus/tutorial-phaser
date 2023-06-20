@@ -1,4 +1,4 @@
-import Arena from "@colyseus/arena";
+import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { Server } from "colyseus";
 
@@ -13,8 +13,10 @@ import { Part4Room } from "./rooms/Part4Room";
 let gameServerRef: Server;
 let latencySimulationMs: number = 0;
 
-export default Arena({
-    getId: () => "Your Colyseus App",
+export default config({
+    options: {
+        devMode: true,
+    },
 
     initializeGameServer: (gameServer) => {
         /**
@@ -26,7 +28,7 @@ export default Arena({
         gameServer.define('part4_room', Part4Room);
 
         //
-        // keep gameServer reference, so we can 
+        // keep gameServer reference, so we can
         // call `.simulateLatency()` later through an http route
         //
         gameServerRef = gameServer;
@@ -45,7 +47,7 @@ export default Arena({
         app.get("/simulate-latency/:milliseconds", (req, res) => {
             latencySimulationMs = parseInt(req.params.milliseconds || "100");
 
-            // enable latency simulation 
+            // enable latency simulation
             gameServerRef.simulateLatency(latencySimulationMs);
 
             res.json({ success: true });
