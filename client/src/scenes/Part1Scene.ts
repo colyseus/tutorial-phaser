@@ -10,6 +10,8 @@
 import Phaser from "phaser";
 import { Room, Client, getStateCallbacks } from "colyseus.js";
 import { BACKEND_URL } from "../backend";
+
+// Import the state type from server-side code
 import type { MyRoomState } from "../../../server/src/rooms/Part1Room";
 
 export class Part1Scene extends Phaser.Scene {
