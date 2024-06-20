@@ -30,7 +30,9 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@colyseus/core": "^0.16.0-preview.20",
     "@colyseus/monitor": "^0.16.0-preview.2",
+    "@colyseus/playground": "^0.16.0-preview.5",
     "@colyseus/tools": "^0.16.0-preview.0",
     "colyseus": "^0.16.0-preview.0",
     "cors": "^2.8.5",

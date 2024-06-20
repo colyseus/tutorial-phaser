@@ -12,11 +12,10 @@ export class MyRoomState extends Schema {
   @type({ map: Player }) players = new MapSchema<Player>();
 }
 
-export class Part1Room extends Room<MyRoomState> {
+export class Part1Room extends Room {
+  state = new MyRoomState();
 
   onCreate (options: any) {
-    this.setState(new MyRoomState());
-
     // set map dimensions
     this.state.mapWidth = 800;
     this.state.mapHeight = 600;

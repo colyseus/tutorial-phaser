@@ -24,11 +24,10 @@ export class MyRoomState extends Schema {
 }
 
 export class Part3Room extends Room<MyRoomState> {
+  state = new MyRoomState();
   fixedTimeStep = 1000 / 60;
 
   onCreate (options: any) {
-    this.setState(new MyRoomState());
-
     // set map dimensions
     this.state.mapWidth = 800;
     this.state.mapHeight = 600;
