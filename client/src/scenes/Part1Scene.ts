@@ -8,11 +8,12 @@
  */
 
 import Phaser from "phaser";
-import { Room, Client } from "colyseus.js";
+import { Room, Client, getStateCallbacks } from "colyseus.js";
 import { BACKEND_URL } from "../backend";
+import type { MyRoomState } from "../../../server/src/rooms/Part1Room";
 
 export class Part1Scene extends Phaser.Scene {
-    room: Room;
+    room: Room<MyRoomState>;
     playerEntities: { [sessionId: string]: Phaser.Types.Physics.Arcade.ImageWithDynamicBody } = {};
 
     debugFPS: Phaser.GameObjects.Text;
@@ -37,12 +38,14 @@ export class Part1Scene extends Phaser.Scene {
         // connect with the room
         await this.connect();
 
-        this.room.state.players.onAdd((player, sessionId) => {
+        const $ = getStateCallbacks(this.room);
+
+        $(this.room.state).players.onAdd((player, sessionId) => {
             const entity = this.physics.add.image(player.x, player.y, 'ship_0001');
             this.playerEntities[sessionId] = entity;
 
             // listening for server updates
-            player.onChange(() => {
+            $(player).onChange(() => {
                 //
                 // update local position immediately
                 // (WE WILL CHANGE THIS ON PART 2)
@@ -53,7 +56,7 @@ export class Part1Scene extends Phaser.Scene {
         });
 
         // remove local reference when entity is removed from the server
-        this.room.state.players.onRemove((player, sessionId) => {
+        $(this.room.state).players.onRemove((player, sessionId) => {
             const entity = this.playerEntities[sessionId];
             if (entity) {
                 entity.destroy();
@@ -91,7 +94,7 @@ export class Part1Scene extends Phaser.Scene {
     update(time: number, delta: number): void {
         // skip loop if not connected with room yet.
         if (!this.room) {
-            return; 
+            return;
         }
 
         // send input to the server

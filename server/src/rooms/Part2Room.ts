@@ -1,10 +1,21 @@
 import { Room, Client } from "colyseus";
-import { Part2State, Player } from "./Part2State";
+import { Schema, type, MapSchema } from "@colyseus/schema";
 
-export class Part2Room extends Room<Part2State> {
+export class Player extends Schema {
+  @type("number") x: number;
+  @type("number") y: number;
+}
+
+export class MyRoomState extends Schema {
+  @type("number") mapWidth: number;
+  @type("number") mapHeight: number;
+  @type({ map: Player }) players = new MapSchema<Player>();
+}
+
+export class Part2Room extends Room<MyRoomState> {
 
   onCreate (options: any) {
-    this.setState(new Part2State());
+    this.setState(new MyRoomState());
 
     // set map dimensions
     this.state.mapWidth = 800;

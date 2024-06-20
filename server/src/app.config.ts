@@ -15,7 +15,7 @@ let latencySimulationMs: number = 0;
 
 export default config({
     options: {
-        devMode: true,
+        // devMode: true,
     },
 
     initializeGameServer: (gameServer) => {
