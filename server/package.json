@@ -30,7 +30,6 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@colyseus/arena": "^0.15.0-preview.1",
     "@colyseus/monitor": "^0.15.1",
     "@colyseus/tools": "^0.15.15",
     "colyseus": "^0.15.0",
