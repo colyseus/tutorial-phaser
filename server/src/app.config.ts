@@ -1,6 +1,7 @@
 import config from "@colyseus/tools";
+import { Server } from "@colyseus/core";
 import { monitor } from "@colyseus/monitor";
-import { Server } from "colyseus";
+import { playground } from "@colyseus/playground";
 
 /**
  * Import your Room files
@@ -15,7 +16,7 @@ let latencySimulationMs: number = 0;
 
 export default config({
     options: {
-        devMode: true,
+        // devMode: true,
     },
 
     initializeGameServer: (gameServer) => {
@@ -38,7 +39,7 @@ export default config({
         /**
          * Bind your custom express routes here:
          */
-        app.get("/", (req, res) => {
+        app.get("/hello", (req, res) => {
             res.send("It's time to kick ass and chew bubblegum!");
         });
 
@@ -52,6 +53,10 @@ export default config({
 
             res.json({ success: true });
         });
+
+        if (process.env.NODE_ENV !== "production") {
+            app.use("/", playground());
+        }
 
         /**
          * Bind @colyseus/monitor

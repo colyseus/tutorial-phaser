@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "lib",
-    "target": "es6",
-    "module": "commonjs",
+    "outDir": "build",
+    "target": "ESNext",
+    "resolveJsonModule":true,
+    "module": "ESNext",
+    "moduleResolution": "node",
     "strict": true,
     "allowJs": true,
     "strictNullChecks": false,

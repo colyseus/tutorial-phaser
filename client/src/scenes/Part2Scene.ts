@@ -8,11 +8,14 @@
  */
 
 import Phaser from "phaser";
-import { Room, Client } from "colyseus.js";
+import { Room, Client, getStateCallbacks } from "colyseus.js";
 import { BACKEND_URL } from "../backend";
 
+// Import the state type from server-side code
+import type { MyRoomState } from "../../../server/src/rooms/Part2Room";
+
 export class Part2Scene extends Phaser.Scene {
-    room: Room;
+    room: Room<MyRoomState>;
 
     currentPlayer: Phaser.Types.Physics.Arcade.ImageWithDynamicBody;
     playerEntities: { [sessionId: string]: Phaser.Types.Physics.Arcade.ImageWithDynamicBody } = {};
@@ -39,12 +42,14 @@ export class Part2Scene extends Phaser.Scene {
         // connect with the room
         await this.connect();
 
-        this.room.state.players.onAdd((player, sessionId) => {
+        const $ = getStateCallbacks(this.room);
+
+        $(this.room.state).players.onAdd((player, sessionId) => {
             const entity = this.physics.add.image(player.x, player.y, 'ship_0001');
             this.playerEntities[sessionId] = entity;
 
             // listening for server updates
-            player.onChange(() => {
+            $(player).onChange(() => {
                 //
                 // do not update local position immediately
                 // we're going to LERP them during the render loop.
@@ -55,7 +60,7 @@ export class Part2Scene extends Phaser.Scene {
         });
 
         // remove local reference when entity is removed from the server
-        this.room.state.players.onRemove((player, sessionId) => {
+        $(this.room.state).players.onRemove((player, sessionId) => {
             const entity = this.playerEntities[sessionId];
             if (entity) {
                 entity.destroy();

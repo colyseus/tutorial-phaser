@@ -14,12 +14,13 @@
   "author": "Endel Dreyer",
   "license": "MIT",
   "devDependencies": {
+    "buffer": "^6.0.3",
     "parcel": "^2.4.0",
     "process": "^0.11.10",
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "colyseus.js": "^0.15.9",
+    "colyseus.js": "^0.16.0",
     "phaser": "^3.55.2"
   }
 }
