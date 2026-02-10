@@ -20,6 +20,11 @@ export class SceneSelector extends Phaser.Scene {
         // preload demo assets
         // this.load.image('ship_0001', 'assets/ship_0001.png');
         this.load.image('ship_0001', 'https://cdn.glitch.global/3e033dcd-d5be-4db4-99e8-086ae90969ec/ship_0001.png?v=1649945243288');
+     this.cameras.main.setBackgroundColor(0x000000);
+    this.load.spritesheet("pj", "./pj/4500.png", {
+      frameWidth: 140,
+      frameHeight: 170,
+    });
     }
 
     create() {
